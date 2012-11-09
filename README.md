@@ -1,3 +1,5 @@
+**NOTE: This readme has not yet been updated for this plug-in. Sorry.**
+
 ## Synopsis
 
 This is a [Sublime Text 2](http://www.sublimetext.com/2) plugin.
