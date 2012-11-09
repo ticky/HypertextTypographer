@@ -1,3 +1,4 @@
+# coding: utf-8
 '''
 Provides a highlighter for potentially invalid web typography.
 
@@ -33,7 +34,7 @@ def is_find_results(view):
     return view.settings().get('syntax') and "Find Results" in view.settings().get('syntax')
 
 def is_hypertext_type(view):
-    return view.settings().get('syntax') and ("HTML" in view.settings().get('syntax') or "XML" in view.settings().get('syntax'))
+    return (view.settings().get('syntax') and ("HTML" in view.settings().get('syntax') or "XML" in view.settings().get('syntax')) or view.file_name() != None and "aspx" in view.file_name())
 
 # Return an array of regions matching trailing spaces.
 def find_hypertext_typographer(view):
