@@ -26,12 +26,14 @@ DEFAULT_IS_ENABLED = True
 
 #Set whether the plugin is on or off
 ts_settings = sublime.load_settings('hypertext_typographer.sublime-settings')
-hypertext_typographer_enabled = bool(ts_settings.get('hypertext_typographer_enabled',
-                                               DEFAULT_IS_ENABLED))
+hypertext_typographer_enabled = bool(ts_settings.get('hypertext_typographer_enabled', DEFAULT_IS_ENABLED))
 
 # Determine if the view is a find results view
 def is_find_results(view):
     return view.settings().get('syntax') and "Find Results" in view.settings().get('syntax')
+
+def is_hypertext_type(view):
+    return view.settings().get('syntax') and ("HTML" in view.settings().get('syntax') or "XML" in view.settings().get('syntax'))
 
 # Return an array of regions matching trailing spaces.
 def find_hypertext_typographer(view):
@@ -40,21 +42,17 @@ def find_hypertext_typographer(view):
 
 # Highlight trailing spaces
 def highlight_hypertext_typographer(view):
-    max_size = ts_settings.get('hypertext_typographer_file_max_size',
-                               DEFAULT_MAX_FILE_SIZE)
-    color_scope_name = ts_settings.get('hypertext_typographer_highlight_color',
-                                       DEFAULT_COLOR_SCOPE_NAME)
-    if view.size() <= max_size and not is_find_results(view):
+    max_size = ts_settings.get('hypertext_typographer_file_max_size', DEFAULT_MAX_FILE_SIZE)
+    color_scope_name = ts_settings.get('hypertext_typographer_highlight_color', DEFAULT_COLOR_SCOPE_NAME)
+    if view.size() <= max_size and is_hypertext_type(view) and not is_find_results(view):
         regions = find_hypertext_typographer(view)
-        view.add_regions('TrailingSpacesHighlightListener',
-                         regions, color_scope_name,
-                         sublime.DRAW_EMPTY)
+        view.add_regions('HypertextTypographerHighlightListener', regions, color_scope_name, sublime.DRAW_EMPTY)
 
 
 # Clear all trailing spaces
 def clear_hypertext_typographer_highlight(window):
     for view in window.views():
-        view.erase_regions('TrailingSpacesHighlightListener')
+        view.erase_regions('HypertextTypographerHighlightListener')
 
 
 # Toggle the event listner on or off
@@ -72,7 +70,7 @@ class ToggleTrailingSpacesCommand(sublime_plugin.WindowCommand):
 
 
 # Highlight matching regions.
-class TrailingSpacesHighlightListener(sublime_plugin.EventListener):
+class HypertextTypographerHighlightListener(sublime_plugin.EventListener):
     def on_modified(self, view):
         if hypertext_typographer_enabled:
             highlight_hypertext_typographer(view)
@@ -87,22 +85,22 @@ class TrailingSpacesHighlightListener(sublime_plugin.EventListener):
 
 
 # Allows to erase matching regions.
-class DeleteTrailingSpacesCommand(sublime_plugin.TextCommand):
-    def run(self, edit):
-        regions = find_hypertext_typographer(self.view)
-        if regions:
-            # deleting a region changes the other regions positions, so we
-            # handle this maintaining an offset
-            offset = 0
-            for region in regions:
-                r = sublime.Region(region.a + offset, region.b + offset)
-                self.view.erase(edit, sublime.Region(r.a, r.b))
-                offset -= r.size()
+# class DeleteTrailingSpacesCommand(sublime_plugin.TextCommand):
+#     def run(self, edit):
+#         regions = find_hypertext_typographer(self.view)
+#         if regions:
+#             # deleting a region changes the other regions positions, so we
+#             # handle this maintaining an offset
+#             offset = 0
+#             for region in regions:
+#                 r = sublime.Region(region.a + offset, region.b + offset)
+#                 self.view.erase(edit, sublime.Region(r.a, r.b))
+#                 offset -= r.size()
 
-            msg_parts = {"nbRegions": len(regions),
-                         "plural":    's' if len(regions) > 1 else ''}
-            msg = "Deleted %(nbRegions)s trailing spaces region%(plural)s" % msg_parts
-        else:
-            msg = "No trailing spaces to delete!"
+#             msg_parts = {"nbRegions": len(regions),
+#                          "plural":    's' if len(regions) > 1 else ''}
+#             msg = "Deleted %(nbRegions)s trailing spaces region%(plural)s" % msg_parts
+#         else:
+#             msg = "No trailing spaces to delete!"
 
-        sublime.status_message(msg)
+#         sublime.status_message(msg)
