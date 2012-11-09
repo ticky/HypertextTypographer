@@ -57,7 +57,7 @@ def clear_hypertext_typographer_highlight(window):
 
 
 # Toggle the event listner on or off
-class ToggleTrailingSpacesCommand(sublime_plugin.WindowCommand):
+class ToggleTypographyHighlightCommand(sublime_plugin.WindowCommand):
     def run(self):
         global hypertext_typographer_enabled
         hypertext_typographer_enabled = False if hypertext_typographer_enabled else True
