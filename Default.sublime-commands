@@ -1,10 +1,14 @@
 [
 	{
-		"caption": "Trailing Spaces: Toggle Trailing Spaces",
-		"command": "toggle_trailing_spaces"
+		"caption": "Hypertext Typographer: Show or Hide Potential Problems",
+		"command": "toggle_typography_highlight"
+	}/*,
+	{
+		"caption": "Hypertext Typographer: HTML Escape Potential Problems",
+		"command": "html_escape_typography"
 	},
 	{
-		"caption": "Trailing Spaces: Delete Trailing Spaces",
-		"command": "delete_trailing_spaces"
-	}
+		"caption": "Hypertext Typographer: Replace Potential Problems with Plain Alternatives",
+		"command": "plain_replace_typography"
+	}*/
 ]

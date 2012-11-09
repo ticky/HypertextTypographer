@@ -1,0 +1,10 @@
+{
+	// Color is determined by scope
+	"hypertext_typographer_highlight_color"     : "invalid",
+
+	// Max file size to search
+	"hypertext_typographer_file_max_size"       : 1048576,
+
+	// By default plugin is enabled or disabled (true|false)
+	"hypertext_typographer_enabled"             : true
+}
