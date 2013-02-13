@@ -1,14 +1,25 @@
-**NOTE: This readme has not yet been updated for this plug-in. Sorry.**
+# Hypertext Typographer
 
-## Synopsis
+For [Sublime Text 2](http://www.sublimetext.com/2).
 
-This is a [Sublime Text 2](http://www.sublimetext.com/2) plugin.
+**Highlight typographical errors in HTML and fix them in a flash.**
 
-**Highlight trailing spaces and delete them in a flash.**
+Copywriters and clients use Microsoft Word to compose copy for websites.
+This is a sad but unavoidable fact of life. This Sublime Text 2 plugin is
+intended to detect such errors in realtime, and allow easy replacement of the
+most common special characters inserted by rich text editors.
 
-ST2 provides a way to automatically delete trailing spaces upon file save.
-Depending on your settings, it may be more handy to just highlight them and/or
-delete them by hand. This plugin provides just that!
+The intent is not to function as a dumb html_escape function, nor is it to
+replace or enhance the built-in HTML syntax error highlighting.
+It is instead intended to stop only the frustrating and difficult to spot
+typographical issues in their tracks.
+
+## What is detected?
+
+* "Smart" or "Typographers'" quotes (`“`, `”`, `‘`, `’`)
+* Horizontal Ellipses (`…`)
+* Dashes (`‒`, `–`, `—`, `―`)
+* Fractions (`½`, `¼`, `¾`)
 
 ## Installation
 
@@ -21,11 +32,13 @@ Go to your `Packages` subdirectory under ST2's data directory:
 
 Then clone this repository:
 
-    git clone git://github.com/SublimeText/TrailingSpaces.git
+    git clone git://github.com/ticky/HypertextTypographer.git
 
 That's it!
 
 ## Options
+
+_Note: The following sections have not yet been updated for this plug-in._
 
 Several options are available to customize the plugin look 'n feel. The
 config keys goes into config files accessible throught the "Preferences"
@@ -38,9 +51,9 @@ In order to use the deletion feature, one must add the mapping by hand
 
 ``` js
 { "keys": ["ctrl+shift+t"], "command": "delete_trailing_spaces" }
+```
 
 Here, pressing Ctrl + Shift + t will delete all trailing spaces.
-```
 
 ### Change the highlighting color
 

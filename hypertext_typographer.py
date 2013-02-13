@@ -38,7 +38,7 @@ def is_hypertext_type(view):
 
 # Return an array of regions matching trailing spaces.
 def find_hypertext_typographer(view):
-    return view.find_all(u'[“”‘’]')
+    return view.find_all(u'[“”‘’…‒–—―½¼¾]')
 
 
 # Highlight trailing spaces
@@ -85,23 +85,23 @@ class HypertextTypographerHighlightListener(sublime_plugin.EventListener):
             highlight_hypertext_typographer(view)
 
 
-# Allows to erase matching regions.
-# class DeleteTrailingSpacesCommand(sublime_plugin.TextCommand):
-#     def run(self, edit):
-#         regions = find_hypertext_typographer(self.view)
-#         if regions:
-#             # deleting a region changes the other regions positions, so we
-#             # handle this maintaining an offset
-#             offset = 0
-#             for region in regions:
-#                 r = sublime.Region(region.a + offset, region.b + offset)
-#                 self.view.erase(edit, sublime.Region(r.a, r.b))
-#                 offset -= r.size()
+ # Replace matching regions. Method depends on configuration.
+ class ReplaceTypographyCommand(sublime_plugin.TextCommand):
+     def run(self, edit):
+         regions = find_hypertext_typographer(self.view)
+         if regions:
+             # deleting a region changes the other regions positions, so we
+             # handle this maintaining an offset
+             offset = 0
+             for region in regions:
+                 r = sublime.Region(region.a + offset, region.b + offset)
+                 self.view.erase(edit, sublime.Region(r.a, r.b))
+                 offset -= r.size()
 
-#             msg_parts = {"nbRegions": len(regions),
-#                          "plural":    's' if len(regions) > 1 else ''}
-#             msg = "Deleted %(nbRegions)s trailing spaces region%(plural)s" % msg_parts
-#         else:
-#             msg = "No trailing spaces to delete!"
+             msg_parts = {"nbRegions": len(regions),
+                          "plural":    's' if len(regions) > 1 else ''}
+             msg = "Replaced %(nbRegions)s special character%(plural)s" % msg_parts
+         else:
+             msg = "No special characters to replace!"
 
-#         sublime.status_message(msg)
+         sublime.status_message(msg)
