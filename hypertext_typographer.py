@@ -85,18 +85,60 @@ class HypertextTypographerHighlightListener(sublime_plugin.EventListener):
             highlight_hypertext_typographer(view)
 
 
-# Replace matching regions. Method depends on configuration.
-class ReplaceTypographyCommand(sublime_plugin.TextCommand):
+# HTML Escape matching regions.
+# This will replace any and all characters with HTML/XML equivalent character references.
+class EscapeTypographyCommand(sublime_plugin.TextCommand):
     def run(self, edit):
         regions = find_hypertext_typographer(self.view)
         if regions:
-            # deleting a region changes the other regions positions, so we
+            # replacing a region changes the other regions positions, so we
             # handle this maintaining an offset
             offset = 0
             for region in regions:
                 r = sublime.Region(region.a + offset, region.b + offset)
-                self.view.erase(edit, sublime.Region(r.a, r.b))
-                offset -= r.size()
+                t = self.view.substr(r)
+                tr = t.encode('ascii','xmlcharrefreplace')
+                self.view.replace(edit, r, tr)
+                offset += len(tr) - r.size()
+
+            msg_parts = {"nbRegions": len(regions),
+                         "plural":    's' if len(regions) > 1 else ''}
+            msg = "Escaped %(nbRegions)s special character%(plural)s" % msg_parts
+        else:
+            msg = "No special characters to escape!"
+
+        sublime.status_message(msg)
+
+
+# Replace matching regions with plain replacements.
+class ReplaceTypographyCommand(sublime_plugin.TextCommand):
+    def run(self, edit):
+        replacements = {
+            u"“": "\"",
+            u"”": "\"",
+            u"‘": "'",
+            u"’": "'",
+            u"…": "...",
+            u"‒": "-",
+            u"–": "-",
+            u"—": "-",
+            u"―": "-",
+            u"½": "1/2",
+            u"¼": "1/4",
+            u"¾": "3/4"
+        }
+        regions = find_hypertext_typographer(self.view)
+        if regions:
+            # replacing a region changes the other regions positions, so we
+            # handle this maintaining an offset
+            offset = 0
+            for region in regions:
+                r = sublime.Region(region.a + offset, region.b + offset)
+                t = self.view.substr(r)
+                tr = "".join(replacements.get(c,c) for c in t)
+                sublime.status_message(tr)
+                self.view.replace(edit, r, tr)
+                offset += len(tr) - r.size()
 
             msg_parts = {"nbRegions": len(regions),
                          "plural":    's' if len(regions) > 1 else ''}
@@ -105,3 +147,4 @@ class ReplaceTypographyCommand(sublime_plugin.TextCommand):
             msg = "No special characters to replace!"
 
         sublime.status_message(msg)
+

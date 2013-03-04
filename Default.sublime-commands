@@ -2,13 +2,13 @@
 	{
 		"caption": "Hypertext Typographer: Show or Hide Potential Problems",
 		"command": "toggle_typography_highlight"
-	}/*,
+	},
 	{
 		"caption": "Hypertext Typographer: HTML Escape Potential Problems",
-		"command": "html_escape_typography"
+		"command": "escape_typography"
 	},
 	{
 		"caption": "Hypertext Typographer: Replace Potential Problems with Plain Alternatives",
-		"command": "plain_replace_typography"
-	}*/
+		"command": "replace_typography"
+	}
 ]
