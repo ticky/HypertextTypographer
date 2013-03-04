@@ -5,10 +5,13 @@
 	},
 	{
 		"caption": "Hypertext Typographer: HTML Escape Potential Problems",
-		"command": "escape_typography"
+		"command": "escape_typography",
+        "args": {
+        	"mode": "escape"
+        }
 	},
 	{
 		"caption": "Hypertext Typographer: Replace Potential Problems with Plain Alternatives",
-		"command": "replace_typography"
+		"command": "escape_typography"
 	}
 ]
