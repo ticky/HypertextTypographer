@@ -38,22 +38,21 @@ That's it!
 
 ## Options
 
-_Note: The following sections have not yet been updated for this plug-in._
-
 Several options are available to customize the plugin look 'n feel. The
 config keys goes into config files accessible throught the "Preferences"
 menu.
 
-### Bind the deletion command to a shortcut
+### Bind the escape command to a shortcut
 
-In order to use the deletion feature, one must add the mapping by hand
+In order to use the escape feature, one must add the mapping by hand
 (this should probably go into "Key Bindings - User"):
 
 ``` js
-{ "keys": ["ctrl+shift+t"], "command": "delete_trailing_spaces" }
+{ "keys": ["ctrl+shift+t"], "command": "escape_typography" }
 ```
 
-Here, pressing Ctrl + Shift + t will delete all trailing spaces.
+Here, pressing Ctrl + Shift + t will escape any invalid HTML typograpgy
+detected.
 
 ### Change the highlighting color
 
@@ -61,12 +60,11 @@ One may also change the highlighting color, providing a scope name such
 as "invalid", "comment"... in "File Settings - User":
 
 ``` js
-{ "trailing_spaces_highlight_color": "invalid" }
+{ "hypertext_typographer_highlight_color": "invalid" }
 ```
 
 Actually, "invalid" is the default value. If you'd like to use a custom color,
-it should be defined as a color scope in your theme file. Feel free to ask me
-how to do it.
+it should be defined as a color scope in your theme file.
 
 ### Disabling highlighting for large files
 
@@ -74,8 +72,12 @@ Highlighting may be disabled for large files. The default threshold is around
 1M chars. This is configurable (in "File Settings - User"); unit is number of chars:
 
 ``` js
-{ "trailing_spaces_file_max_size": 1000}
+{ "hypertext_typographer_file_max_size": 1000}
 ```
 
-Even though the trailing spaces are not highlighted, one can still delete them
-using the deletion command.
+Even though the typographical issues are not highlighted, one can still use either
+replacement command as normal.
+
+## Acknowledgements
+
+This is based upon [Trailing Spaces](https://github.com/SublimeText/TrailingSpaces) by Jean-Denis Vauguet.
