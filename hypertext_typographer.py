@@ -125,10 +125,16 @@ class EscapeTypographyCommand(sublime_plugin.TextCommand):
                 self.view.replace(edit, r, tr)
                 offset += len(tr) - r.size()
 
-            msg_parts = {"nbRegions": len(regions),
-                         "plural":    's' if len(regions) > 1 else ''}
-            msg = "Escaped %(nbRegions)s special character%(plural)s" % msg_parts
+            status_parts = {
+                "mode": mode.capitalize(),
+                "nRegions": len(regions),
+                "plural": 's' if len(regions) > 1 else ''
+            }
+            status = "%(mode)sd %(nRegions)s special character%(plural)s" % status_parts
         else:
-            msg = "No special characters to escape!"
+            status_parts = {
+                "mode": mode
+            }
+            status = "No special characters to %(mode)s!" % status_parts
 
-        sublime.status_message(msg)
+        sublime.status_message(status)
