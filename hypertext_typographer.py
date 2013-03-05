@@ -25,25 +25,28 @@ DEFAULT_MAX_FILE_SIZE = 1048576
 DEFAULT_COLOR_SCOPE_NAME = "invalid"
 DEFAULT_IS_ENABLED = True
 
-# TODO: Load from config file
-replacements = {
+DEFAULT_REPLACEMENTS = {
+    # Typographers' Quotes
     u"“": "\"",
     u"”": "\"",
     u"‘": "'",
     u"’": "'",
+    # Ellipses and dashes
     u"…": "...",
     u"‒": "-",
     u"–": "-",
     u"—": "-",
     u"―": "-",
+    # Fractions
     u"½": "1/2",
     u"¼": "1/4",
     u"¾": "3/4"
 }
 
 #Set whether the plugin is on or off
-ts_settings = sublime.load_settings('hypertext_typographer.sublime-settings')
-hypertext_typographer_enabled = bool(ts_settings.get('hypertext_typographer_enabled', DEFAULT_IS_ENABLED))
+ht_settings = sublime.load_settings('hypertext_typographer.sublime-settings')
+hypertext_typographer_enabled = bool(ht_settings.get('hypertext_typographer_enabled', DEFAULT_IS_ENABLED))
+replacements = dict((unicode(key, 'utf-8'), value) for (key, value) in ht_settings.get('hypertext_typographer_replacements', DEFAULT_REPLACEMENTS).items())
 
 # Determine if the view is a find results view
 def is_find_results(view):
@@ -58,8 +61,8 @@ def find_problem_characters(view):
 
 # Highlight problematic characters
 def highlight_problem_characters(view):
-    max_size = ts_settings.get('hypertext_typographer_file_max_size', DEFAULT_MAX_FILE_SIZE)
-    color_scope_name = ts_settings.get('hypertext_typographer_highlight_color', DEFAULT_COLOR_SCOPE_NAME)
+    max_size = ht_settings.get('hypertext_typographer_file_max_size', DEFAULT_MAX_FILE_SIZE)
+    color_scope_name = ht_settings.get('hypertext_typographer_highlight_color', DEFAULT_COLOR_SCOPE_NAME)
     if view.size() <= max_size and is_hypertext_type(view) and not is_find_results(view):
         regions = find_problem_characters(view)
         view.add_regions('HypertextTypographerHighlightListener', regions, color_scope_name, sublime.DRAW_EMPTY)

@@ -1,10 +1,29 @@
 {
 	// Color is determined by scope
-	"hypertext_typographer_highlight_color"     : "invalid",
+	"hypertext_typographer_highlight_color": "invalid",
 
 	// Max file size to search
-	"hypertext_typographer_file_max_size"       : 1048576,
+	"hypertext_typographer_file_max_size": 1048576,
 
 	// By default plugin is enabled or disabled (true|false)
-	"hypertext_typographer_enabled"             : true
+	"hypertext_typographer_enabled": true,
+
+	// List of characters to find and replace.
+	"hypertext_typographer_replacements": {
+		// Typographers' Quotes
+		"“": "\"",
+		"”": "\"",
+		"‘": "'",
+		"’": "'",
+		// Ellipses and dashes
+		"…": "...",
+		"‒": "-",
+		"–": "-",
+		"—": "-",
+		"―": "-",
+		//Fractions
+		"½": "1/2",
+		"¼": "1/4",
+		"¾": "3/4"
+	}
 }
