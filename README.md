@@ -50,7 +50,7 @@ Go to your `Packages` subdirectory under ST2's data directory:
 
 Then clone this repository:
 
-    git clone git://github.com/ticky/HypertextTypographer.git
+    git clone git://github.com/geoffstokes/HypertextTypographer.git
 
 That's it!
 
