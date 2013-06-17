@@ -41,6 +41,14 @@ you wish to include.
 
 ## Installation
 
+### Package Control (Recommended)
+
+1. Install [Sublime Package Control](http://wbond.net/sublime_packages/package_control/installation).
+2. Run `Package Control: Install Package` from the Command Palette
+3. Find and install the `HypertextTypographer` plugin
+
+### Manually
+
 Go to your `Packages` subdirectory under ST2's data directory:
 
 * Windows: `%APPDATA%\Sublime Text 2`
