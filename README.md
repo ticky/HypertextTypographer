@@ -45,7 +45,7 @@ you wish to include.
 
 1. Install [Sublime Package Control](http://wbond.net/sublime_packages/package_control/installation).
 2. Run `Package Control: Install Package` from the Command Palette
-3. Find and install the `HypertextTypographer` plugin
+3. Find and install the `Hypertext Typographer` plugin
 
 ### Manually
 
@@ -58,7 +58,7 @@ Go to your `Packages` subdirectory under ST2's data directory:
 
 Then clone this repository:
 
-    git clone git://github.com/geoffstokes/HypertextTypographer.git
+    git clone https://git.gitorious.org/geoffstokes/hypertext-typographer.git
 
 That's it!
 
