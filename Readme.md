@@ -10,7 +10,7 @@ This Sublime Text 2 plugin is intended to detect such errors in realtime, and
 allow easy replacement of the most common special characters inserted by rich
 text editors.
 
-The intent is not to function as a dumb html_escape function, nor is it to
+The intent is not to function as a dumb `html_escape` function, nor is it to
 replace or enhance the built-in HTML syntax error highlighting.
 It is instead intended to stop only the frustrating and difficult to spot
 typographical issues in their tracks.
@@ -58,7 +58,7 @@ Go to your `Packages` subdirectory under ST2's data directory:
 
 Then clone this repository:
 
-    git clone https://git.gitorious.org/geoffstokes/hypertext-typographer.git
+    git clone https://github.com/grapegravity/HypertextTypographer.git
 
 That's it!
 
